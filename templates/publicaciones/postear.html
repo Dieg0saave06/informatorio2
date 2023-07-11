@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block contenido %}
+    
+    <h1>Empieza a publicarrr!!!</h1>
+    <form method="post">{% csrf_token %}
+
+        {{ form.as_p }}        
+
+        <button type = "submit" class="btn btn-success">Publicar!</button>
+
+
+
+    </form>
+
+{% endblock contenido %}
+    
