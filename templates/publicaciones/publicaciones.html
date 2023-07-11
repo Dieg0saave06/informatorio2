@@ -3,10 +3,7 @@
 
 
 {% block contenido %}
-    <h2>TODAS MIS PUBLICACIONES:</h2>
-
-    
-
+    <h1>MIS PUBLICACIONES</h1>
     
     {% for post in posteos %}
         <div class="card m-5">
@@ -18,19 +15,19 @@
             <p class="card-text">{{ post.post }}</p>
             <p class="card-text">{{ post.categoria }}</p>
             <a href="#" class="btn btn-success">Me gusta!</a>
+            <a href="{% url 'publicaciones:editar-post' post.id %}" class="btn btn-success">Editar</a>
+
             </div>
         </div>
     {% endfor %}
 
 
+        
+        {% if user.is_authenticated %}
+        <a href="{% url 'publicaciones:postear' %}" class="btn btn-success mb-3">Postear algo nuevo</a>
 
-    
-    {% if user.is_authenticated %}
-        <a href="{% url 'publicaciones:postear' %}" class="btn btn-success mb-3">Postear algo nuevo!</a>
-    {% endif %}
-        
-    
-        
+        {% endif %}
+            
 
 {% endblock contenido %}
     

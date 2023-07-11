@@ -17,3 +17,4 @@ class CrearPublicacionForm(forms.ModelForm):
             'titulo' : forms.TextInput(attrs= {'placeholder' : 'Aca va el titulo', 'class' : 'form-control'}),
             'post' : forms.TextInput(attrs= {'placeholder' : 'Escribi algo...', 'class' : 'form-control'} )
         }
+    
