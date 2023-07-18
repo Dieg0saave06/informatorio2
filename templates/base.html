@@ -14,12 +14,6 @@
 
 <body>
 
-    <style>
-      body {
-        background: #131313;
-      }
-    </style>
-
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" href="{% url 'index' %}">BLOG</a>
@@ -56,13 +50,13 @@
 
                 
 
-
+              
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'perfil' %}">Perfil</a></li>
                   <li><a class="dropdown-item" href="{% url 'ajustes' %}">Ajustes</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="{% url 'usuarios:logout' %}">Cerrar sesion</a></li>
-                </ul>
+                </ul>            
               </li>
               <li class="nav-item">
                 <a class="nav-link disabled"></a>
@@ -75,7 +69,6 @@
           </div>
         </div>
       </nav>
-      
       
       {% block contenido %}
         

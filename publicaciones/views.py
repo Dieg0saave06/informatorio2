@@ -3,7 +3,7 @@ from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import render
 from publicaciones.models import Publicaciones
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from .forms import CrearPublicacionForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -66,3 +66,9 @@ class EliminarPost(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse('publicaciones:publicaciones')
+
+
+class PostDetalle(LoginRequiredMixin, DetailView):
+    template_name = "publicaciones/detalle-post.html"
+    model = Publicaciones
+    context_object_name = "post"

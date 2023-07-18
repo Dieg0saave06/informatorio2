@@ -10,6 +10,4 @@ def perfilView(request):
 def ajustesView(request):
     return render(request, "ajustes.html", {})
 
-def sesionView(request):
-    return render(request, "cerrar_sesion.html", {})
-    
+
