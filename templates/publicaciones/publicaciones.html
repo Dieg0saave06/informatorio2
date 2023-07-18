@@ -16,6 +16,7 @@
             <h5 class="card-title">{{ post.titulo }}</h5>
             <p class="card-text">{{ post.post }}</p>
             <p class="card-text">{{ post.categoria }}</p>
+            <a href="{% url 'publicaciones:detalle-post' post.id %}" class="custom-button">Ver más</a>
             <a href="{% url 'publicaciones:editar-post' post.id %}" class="custom-button">Editar</a>
             <a href="{% url 'publicaciones:eliminar-post' post.id %}" class="custom-button-danger">Eliminar posteo</a>
 

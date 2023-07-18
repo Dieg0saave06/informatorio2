@@ -1,12 +1,13 @@
-from typing import Any
+from typing import Any, Dict
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import render
-from publicaciones.models import Publicaciones
+from .models import Publicaciones
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
-from .forms import CrearPublicacionForm
+from .forms import CrearPublicacionForm, ComentarioForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
+from core.mixins import SuperUsuarioAutorMixin
 
 
 # Create your views here.
@@ -50,7 +51,7 @@ class Postear(LoginRequiredMixin, CreateView):
 
 
 # View que actualiza una publicacion ya existente
-class EditarPost(LoginRequiredMixin, UpdateView):
+class EditarPost(SuperUsuarioAutorMixin, LoginRequiredMixin, UpdateView):
     model = Publicaciones
     template_name = "publicaciones/editar-post.html"
     form_class = CrearPublicacionForm
@@ -60,7 +61,7 @@ class EditarPost(LoginRequiredMixin, UpdateView):
     
 
 # View que elimina un posteo
-class EliminarPost(LoginRequiredMixin, DeleteView):
+class EliminarPost(SuperUsuarioAutorMixin, LoginRequiredMixin, DeleteView):
     template_name = "publicaciones/eliminar-post.html"
     model = Publicaciones
 
@@ -72,3 +73,22 @@ class PostDetalle(LoginRequiredMixin, DetailView):
     template_name = "publicaciones/detalle-post.html"
     model = Publicaciones
     context_object_name = "post"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["formulario_comentario"] = ComentarioForm()
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        
+        publicacion = self.get_object()
+        form = ComentarioForm(request.POST)
+
+        if form.is_valid():
+            comentario = form.save(commit=False)
+            comentario.autor_id = self.request.user.id
+            comentario.post = publicacion
+            comentario.save()
+            return super().get(request)
+        else:
+            return super().get(request)

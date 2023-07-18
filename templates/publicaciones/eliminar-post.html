@@ -5,10 +5,14 @@
 {% block contenido %}
     
     <form method="post">{% csrf_token %}
-        <p>Estas a punto de eliminar la publicacion.</p>
-        <button type="submit" class="custom-button-danger">Eliminar</button>
-
-
+        <div class="title-container" style="margin-top: 10%;">
+        <h1>Estas a punto de eliminar la publicacion.</h1>
+        </div>
+        <div style="margin-left: 40%;">
+        <h1>¿¿SEGURO??</h1>
+        </div>
+        <button type="submit" class="custom-button-danger" style="margin-left: 41%;">Eliminar</button>
+        <a href="{% url 'publicaciones:publicaciones' %}" class="custom-button">Cancelar</a>
     </form>
 
 
