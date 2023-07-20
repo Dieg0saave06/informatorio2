@@ -1,7 +1,7 @@
 from typing import Any, Dict
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Publicaciones
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from .forms import CrearPublicacionForm, ComentarioForm
@@ -9,6 +9,8 @@ from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from core.mixins import SuperUsuarioAutorMixin, ColaboradorMixin
 from publicaciones.models import Comentario
+from django.core.exceptions import PermissionDenied
+
 
 # Create your views here.
 
@@ -69,7 +71,7 @@ class EliminarPost(SuperUsuarioAutorMixin, LoginRequiredMixin, DeleteView):
         return reverse('publicaciones:publicaciones')
 
 
-class PostDetalle(LoginRequiredMixin, DetailView):
+class PostDetalle(DetailView):
     template_name = "publicaciones/detalle-post.html"
     model = Publicaciones
     context_object_name = "post"
@@ -80,6 +82,9 @@ class PostDetalle(LoginRequiredMixin, DetailView):
         return context
     
     def post(self, request, *args, **kwargs):
+
+        if not self.request.user.is_authenticated:
+            return redirect("usuarios:login")
         
         publicacion = self.get_object()
         form = ComentarioForm(request.POST)
