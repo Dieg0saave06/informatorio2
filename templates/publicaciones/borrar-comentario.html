@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block contenido %}
+
+    <form method="post">{% csrf_token %}
+
+        <h1>Estas a punto de borrar el comentario.</h1>
+        <button type="submit" class="custom-button-danger" style="margin-left: 41%;">Eliminar</button>
+        <a href="{% url 'publicaciones:publicaciones' %}" class="custom-button">Cancelar</a>
+
+    </form>
+
+
+{% endblock contenido %}
+    
